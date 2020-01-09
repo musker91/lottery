@@ -206,7 +206,8 @@
                   for (var i=0; i<a_met_list.length; i++) {
                     a_met_list[i].style.color = color;
                   };
-                  return m.name + '<br/>' + '<font size="3px;">' + m.phone + '</font>';
+                  // return m.name + '<br/>' + '<font size="3px;">' + m.phone + '</font>';
+                  return m.name + '<br/>';
                 });
                localStorage.setItem('choosed', JSON.stringify(choosed));
             return ret;
@@ -250,7 +251,11 @@
                     if(this.running){
                         TagCanvas.SetSpeed('myCanvas', speed());
                         var ret = lottery(this.selected);
-                        $('#result').css('display', 'block').html('<span>' + ret.join('</span><span>') + '</span>');
+                        if (ret.length == 0) {
+                            $('#result').css('display', 'block').html('<span><font size="3px;">已无可参与抽奖人员</font></br><font size="4px;">请先重置</font></span>');
+                        } else {
+                            $('#result').css('display', 'block').html('<span>' + ret.join('</span><span>') + '</span>');
+                        }
                         TagCanvas.Reload('myCanvas');
                         setTimeout(function(){
                             localStorage.setItem(new Date().toString(), JSON.stringify(ret));
